@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <div class="text-center">
+      <img class="logo text-center" 
+        width="300" alt="Angular Logo" 
+        src="https://automationpanda.files.wordpress.com/2018/01/angular-card.png">
+        <h1>To Do List</h1>
+    </div>
+    <div>
+      <input type="text" 
+        class="form-control" 
+        placeholder="Place your to do list here."
+        [(ngModel)]="toDoName"
+        required ngModel
+        #name=ngModel>
+        <br>
+      <ng-template [ngIf]="isAuthenticated()">
+        <button class="btn btn-transparent form-control" 
+        (click)="addToDo()" 
+        [disabled]="!name.valid">Add To Do List</button>
+      </ng-template>
+      
+    </div>
+    <br>
+    <!-- To Do List -->
+    <div>
+      <div class="list-item form-control" *ngFor= "let toDo of toDosFiltered()" @fade>
+        <div class="list-item-left" >
+          <input type="checkbox" 
+            [(ngModel)]="toDo.completed">
+          <div class="list-item-label"
+            [ngClass]="{ 'completed' : toDo.completed }"
+            (click)="editToDo(toDo)"
+            *ngIf="!toDo.editing"> {{ toDo.name }} </div>
+          <input type="text" 
+            class="list-item-edit form-control" 
+            [(ngModel)]="toDo.name" 
+            *ngIf="toDo.editing" 
+            (blur)="doneEdit(toDo)" 
+            (keyup.enter)="doneEdit(toDo)"  
+            (keyup.esc)="cancelEdit(toDo)"
+            autofocus> 
+          </div>
+          <div class="remove-item">
+            <ng-template [ngIf]="isAuthenticated()">
+                <button class="btn btn-secondary" (click)="editToDo(toDo)"> Edit </button>
+                <span (click)="deleteToDo(toDo.id)">&#10060;</span>
+            </ng-template>
+                      
+          </div>
+      </div>
+    </div>
+    
+
+    <div class="extra-container">
+      <div>
+        <label>
+          <input type="checkbox" (change)="checkAllToDos()">Check All
+        </label>
+      </div>
+      <p class="small"> {{ remaining() }} items left</p>
+    </div>
+
+    <div class="extra-container">
+      <div class="btn-group" role="group">
+        <button class="btn btn-primary" 
+          [ngClass]=" {'active': filter === 'all'} "
+          (click)="filter='all'">All</button>
+        <button class="btn btn-primary" 
+          [ngClass]=" {'active': filter === 'active'} "
+          (click)="filter='active'">Active</button>
+        <button class="btn btn-primary" 
+          [ngClass]=" {'active': filter === 'completed'} "
+          (click)="filter='completed'">Completed</button>
+      </div>
+
+      <div *ngIf="completedItem()">
+        <button class="btn btn-primary" (click)="clearCompleted()">Clear Completed</button>
+      </div>      
+    </div>
+    <div class="text-center">
+      <ng-template [ngIf]="isAuthenticated()">
+        <button class="btn btn-default" (click)="onSave()">Save To Do in the Server</button>
+        <button class="btn btn-default" (click)="onGet()">Fetch To Do in the Server</button>
+      </ng-template>
+      
+    </div>    
+  </div><!-- row -->
+</div><!-- container -->

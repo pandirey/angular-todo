@@ -1,0 +1,45 @@
+
+
+ span {
+   margin-left: 8px;
+ }
+
+  .list-item {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .remove-item {
+    cursor: pointer;
+    margin-left: 14px;
+  }
+  
+  .list-item-left { 
+    display: flex;
+    align-items: center;
+  }
+  
+  .list-item-label {
+    margin-left: 12px;
+  }
+
+  .completed {
+    text-decoration: line-through;
+    color: grey;
+  }
+  
+  .extra-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    border-top: 1px solid lightgrey;
+    padding-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  
+ 
+  
